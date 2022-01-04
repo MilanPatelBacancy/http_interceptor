@@ -1,12 +1,47 @@
 # Changelog
 
-## Unreleased
+## 2.0.0-beta.1
+
+- ❗️🛠&nbsp;&nbsp;Changed: Renamed `Method` to use `HttpMethod` and refactored helper functions into extensions (`StringToMethod`, and `MethodToString`).
+- ❗️🛠&nbsp;&nbsp;Changed: `InterceptorContract` to use `BaseRequest` and `BaseResponse` instead of custom models.
+- ❗️🛠&nbsp;&nbsp;Removed: `RequestData` and `ResponseData` since the classes are no longer used.
+- ✨&nbsp;&nbsp;Added: Support for intercepting `Request`,`StreamedRequest` and `MultipartRequest`.
+- ✨&nbsp;&nbsp;Added: Support for intercepting `Response`,`StreamedResponse` and `MultipartRequest`.
+- ✨&nbsp;&nbsp;Added: Extensions for `BaseRequest`, `Request`,`StreamedRequest` and `MultipartRequest` that allows copying requests through a `copyWith` method.
+- ✨&nbsp;&nbsp;Added: Extensions for `BaseResponse`, `Response`,`StreamedResponse` and `IOStreamedResponse` that allows copying responses through a `copyWith` method.
+- 📖&nbsp;&nbsp;Changed: **example** project to showcase updated APIs.
+- 🚦&nbsp;&nbsp;Tests: Improved testing and documentation.
+
+## 1.0.2
+
+- 📖&nbsp;&nbsp;Changed: example project to showcase `RetryPolicy` usage.
+- 🐞&nbsp;&nbsp;Fixed: `parameters` were missing in requests of type `POST`, `PUT`, `PATCH`, and `DELETE`.
+- 🐞&nbsp;&nbsp;Fixed: `int` or other non-string parameters are not being added to request. Thanks to @meysammahfouzi
+- 🐞&nbsp;&nbsp;Fixed: `body` is not sent in delete requests despite being accepted as parameter. Thanks to @MaciejZuk
+
+## 1.0.1
+
+- ✨&nbsp;&nbsp;Changed: `ResponseData` now has `request` to allow checking on the request that triggered the response. Thanks to @II11II
+- 🐞&nbsp;&nbsp;Fixed: Use `queryParametersAll` when creating `RequestData`. Thanks to @Mawi137
+- 📖&nbsp;&nbsp;Fixed: `README` to include `required` keywords needed. Thanks to @meysammahfouzi
+- 🚦&nbsp;&nbsp;Tests: Improved testing and documentation.
+
+## 1.0.0
+
+Check out the [1.0.0 migration guide](./guides/migration_guide_1.0.0.md) for information on how to migrate your code.
 
 - ❗️🛠&nbsp;&nbsp;Changed: Renamed `HttpClientWithInterceptor` to `InterceptedClient`.
 - ❗️🛠&nbsp;&nbsp;Changed: Renamed `HttpWithInterceptor` to `InterceptedHttp`.
-- ✨&nbsp;&nbsp;Added: Response Transformation (useful for background json decoding/encoding).
-- ✨&nbsp;&nbsp;Added: Support for multipart requests.
-- 80% code coverage
+- ❗️🛠&nbsp;&nbsp;Removed: `badCertificateCallback` from `InterceptedClient` and `InterceptedHttp` in order to fully support Flutter Web 🌐 . In order to use refer to the migration guide.
+- ✨&nbsp;&nbsp;Added: Array parameters on `RequestData` following a similar principle than `http`'s `queryParametersAll` .
+- ✨&nbsp;&nbsp;Changed: `ResponseData` now has `bodyBytes` to allow encoding or decoding in the format desired.
+- ✨&nbsp;&nbsp;Changed: Migrated tests to use `test` package instead of `flutter_test`.
+- ✨&nbsp;&nbsp;Changed: More tests and coverage, this is a work in progress.
+- 🗑&nbsp;&nbsp;Removed: Package no longer depends on Flutter, which means that it can be used with standalone Dart projects.
+
+## 0.4.1
+
+- 🛠&nbsp;&nbsp;Changed: Pre initialized `headers` and `params` on `RequestData`. This was a missed change on null-safety migration.
 
 ## 0.4.1
 
@@ -14,7 +49,7 @@
 
 ## 0.4.0
 
-Check out [our 0.4.0 migration guide](./guides/migration_guide_4.md) for information on how to migrate your code.
+Check out [our 0.4.0 migration guide](./guides/migration_guide_0.4.0.md) for information on how to migrate your code.
 
 - ❗️✨&nbsp;&nbsp;Added: String extension to allow `toUri()` usage when importing the library. Since `http` dropped support for string url usage and since Dart does not yet support function overloading, we had to implement an alternative through extensions.
 - ✨&nbsp;&nbsp;Added: Flutter web support 🌐 &nbsp;&nbsp;(`badCertificateCallback` and `findProxy` features are not supported on Flutter Web due to browser limitations)

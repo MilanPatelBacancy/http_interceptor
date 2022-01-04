@@ -1,4 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
+import 'package:test/test.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
 main() {
@@ -26,7 +27,11 @@ main() {
   group("shouldAttemptRetryOnResponse", () {
     test("returns false by default", () async {
       expect(
-          await testObject.shouldAttemptRetryOnResponse(ResponseData()), false);
+        await testObject.shouldAttemptRetryOnResponse(
+          Response('', 200),
+        ),
+        false,
+      );
     });
   });
 }

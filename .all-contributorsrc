@@ -1,0 +1,151 @@
+{
+  "projectName": "http_interceptor",
+  "projectOwner": "CodingAleCR",
+  "repoType": "github",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "codingalecr",
+      "name": "Alejandro Ulate Fallas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12262852?v=3",
+      "profile": "https://codingale.dev",
+      "contributions": [
+        "code",
+        "doc",
+        "test",
+        "ideas",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "caseyryan",
+      "name": "Konstantin Serov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4113558?v=4",
+      "profile": "https://softmaestri.com/en/",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "Virus1908",
+      "name": "Virus1908",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4580305?v=4",
+      "profile": "https://github.com/Virus1908",
+      "contributions": [
+        "ideas",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "AsynchronySuperWes",
+      "name": "Wes Ehrlichman",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13644053?v=4",
+      "profile": "https://github.com/AsynchronySuperWes",
+      "contributions": [
+        "ideas",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "jlubeck",
+      "name": "Jan Lübeck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3067603?v=4",
+      "profile": "http://www.fyrastudio.com",
+      "contributions": [
+        "ideas",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "lucalves",
+      "name": "Lucas Alves",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17712401?v=4",
+      "profile": "http://lucalves.me/",
+      "contributions": [
+        "ideas",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "stewemetal",
+      "name": "István Juhos",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5860632?v=4",
+      "profile": "https://github.com/stewemetal",
+      "contributions": [
+        "ideas",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "shyndman",
+      "name": "Scott Hyndman",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42326?v=4",
+      "profile": "https://github.com/shyndman",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "II11II",
+      "name": "Islam Akhrarov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/45257709?v=4",
+      "profile": "https://github.com/II11II",
+      "contributions": [
+        "ideas",
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "meysammahfouzi",
+      "name": "Meysam",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14848008?v=4",
+      "profile": "https://github.com/meysammahfouzi",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Mawi137",
+      "name": "Martijn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5464100?v=4",
+      "profile": "https://github.com/Mawi137",
+      "contributions": [
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "MaciejZuk",
+      "name": "MaciejZuk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78476165?v=4",
+      "profile": "https://github.com/MaciejZuk",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "lukaskurz",
+      "name": "Lukas Kurz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22956519?v=4",
+      "profile": "http://lukaskurz.com",
+      "contributions": [
+        "test",
+        "ideas",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "repoHost": "https://github.com",
+  "skipCi": true
+}

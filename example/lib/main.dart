@@ -1,10 +1,15 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:http/src/base_request.dart';
+import 'package:http/src/base_response.dart';
 import 'package:http_interceptor/http_interceptor.dart';
-import 'credentials.dart'; // If you are going to run this example you need to replace the key.
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'cities.dart'; // This is just a List of Maps that contains the suggested cities.
+import 'credentials.dart'; // If you are going to run this example you need to replace the key.
 
 void main() => runApp(MyApp());
 
@@ -24,11 +29,33 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   WeatherRepository repository = WeatherRepository(
-    HttpClientWithInterceptor.build(interceptors: [
-      WeatherApiInterceptor(),
-      LoggerInterceptor(),
-    ]),
+    InterceptedClient.build(
+      interceptors: [
+        WeatherApiInterceptor(),
+        LoggerInterceptor(),
+      ],
+      retryPolicy: ExpiredTokenRetryPolicy(),
+    ),
   );
+
+  @override
+  void initState() {
+    super.initState();
+
+    clearStorageForDemoPurposes();
+  }
+
+  Future<void> clearStorageForDemoPurposes() async {
+    final cache = await SharedPreferences.getInstance();
+
+    cache.setString(kOWApiToken, OPEN_WEATHER_EXPIRED_API_KEY);
+  }
+
+  @override
+  void dispose() {
+    repository.client.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +168,7 @@ class WeatherSearch extends SearchDelegate<String?> {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
-            child: Text(snapshot.error as String),
+            child: Text(snapshot.error?.toString() ?? 'Error'),
           );
         }
 
@@ -233,16 +260,16 @@ class WeatherSearch extends SearchDelegate<String?> {
 const baseUrl = "https://api.openweathermap.org/data/2.5";
 
 class WeatherRepository {
-  HttpClientWithInterceptor client;
+  InterceptedClient client;
 
   WeatherRepository(this.client);
 
   // Alternatively you can forget about using the Client and just doing the HTTP request with
-  // the HttpWithInterceptor.build() call.
+  // the InterceptedHttp.build() call.
   // Future<Map<String, dynamic>> fetchCityWeather(int id) async {
   //   var parsedWeather;
   //   try {
-  //     var response = await HttpWithInterceptor.build(
+  //     var response = await InterceptedHttp.build(
   //             interceptors: [WeatherApiInterceptor()])
   //         .get("$baseUrl/weather", params: {'id': "$id"});
   //     if (response.statusCode == 200) {
@@ -251,7 +278,7 @@ class WeatherRepository {
   //       throw Exception("Error while fetching. \n ${response.body}");
   //     }
   //   } catch (e) {
-  //     print(e);
+  //     log(e);
   //   }
   //   return parsedWeather;
   // }
@@ -274,7 +301,7 @@ class WeatherRepository {
     } on FormatException {
       return Future.error('Bad response format 👎');
     } on Exception catch (error) {
-      print(error);
+      log(error.toString());
       return Future.error('Unexpected error 😢');
     }
 
@@ -284,35 +311,69 @@ class WeatherRepository {
 
 class LoggerInterceptor implements InterceptorContract {
   @override
-  Future<RequestData> interceptRequest({required RequestData data}) async {
-    print("----- Request -----");
-    print(data.toString());
-    return data;
+  Future<BaseRequest> interceptRequest({required BaseRequest request}) async {
+    log("----- Request -----");
+    log(request.toString());
+    return request;
   }
 
   @override
-  Future<ResponseData> interceptResponse({required ResponseData data}) async {
-    print("----- Response -----");
-    print(data.toString());
-    return data;
+  Future<BaseResponse> interceptResponse(
+      {required BaseResponse response}) async {
+    log("----- Response -----");
+    log('Err. Code: ${response.statusCode}');
+    log(response.toString());
+    return response;
   }
 }
 
+const String kOWApiToken = "TOKEN";
+
 class WeatherApiInterceptor implements InterceptorContract {
   @override
-  Future<RequestData> interceptRequest({required RequestData data}) async {
-    try {
-      data.params['appid'] = OPEN_WEATHER_API_KEY;
-      data.params['units'] = 'metric';
-      data.headers[HttpHeaders.contentTypeHeader] = "application/json";
-    } catch (e) {
-      print(e);
-    }
-    print(data.params);
-    return data;
+  Future<BaseRequest> interceptRequest({required BaseRequest request}) async {
+    final cache = await SharedPreferences.getInstance();
+
+    final Map<String, String>? headers = Map.from(request.headers);
+    headers?[HttpHeaders.contentTypeHeader] = "application/json";
+
+    return request.copyWith(
+      url: request.url.addParameters({
+        'appid': cache.getString(kOWApiToken) ?? '',
+        'units': 'metric',
+      }),
+      headers: headers,
+    );
   }
 
   @override
-  Future<ResponseData> interceptResponse({required ResponseData data}) async =>
-      data;
+  Future<BaseResponse> interceptResponse(
+          {required BaseResponse response}) async =>
+      response;
+}
+
+class ExpiredTokenRetryPolicy extends RetryPolicy {
+  @override
+  int get maxRetryAttempts => 2;
+
+  @override
+  bool shouldAttemptRetryOnException(Exception reason) {
+    log(reason.toString());
+
+    return false;
+  }
+
+  @override
+  Future<bool> shouldAttemptRetryOnResponse(BaseResponse response) async {
+    if (response.statusCode == 401) {
+      log("Retrying request...");
+      final cache = await SharedPreferences.getInstance();
+
+      cache.setString(kOWApiToken, OPEN_WEATHER_API_KEY);
+
+      return true;
+    }
+
+    return false;
+  }
 }
