@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
-
-import 'package:http_interceptor/http_methods.dart';
-import 'package:http_interceptor/utils.dart';
+import 'package:http_interceptor/http/http_methods.dart';
+import 'package:http_interceptor/utils/utils.dart';
 
 class RequestData {
   Method method;

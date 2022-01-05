@@ -3,13 +3,15 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+
 import 'package:http/http.dart';
 import 'package:http_interceptor/functions/functions.dart';
-import 'package:http_interceptor/interceptor_contract.dart';
+import 'package:http_interceptor/http/http_methods.dart';
+import 'package:http_interceptor/http/interceptor_contract.dart';
 import 'package:http_interceptor/models/models.dart';
-import 'package:http_interceptor/utils.dart';
-
-import 'http_methods.dart';
+import 'package:http_interceptor/models/request_data.dart';
+import 'package:http_interceptor/models/response_data.dart';
+import 'package:http_interceptor/utils/utils.dart';
 
 ///Class to be used by the user to set up a new `http.Client` with interceptor supported.
 ///call the `build()` constructor passing in the list of interceptors.

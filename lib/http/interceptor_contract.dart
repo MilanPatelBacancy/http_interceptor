@@ -1,4 +1,6 @@
-import 'package:http/http.dart';
+
+
+import 'package:http_interceptor/models/models.dart';
 
 ///Interceptor interface to create custom Interceptor for http.
 ///Extend this class and override the functions that you want
@@ -26,7 +28,7 @@ import 'package:http/http.dart';
 ///}
 ///```
 abstract class InterceptorContract {
-  Future<BaseRequest> interceptRequest({required BaseRequest request});
+  Future<RequestData> interceptRequest({required RequestData data});
 
-  Future<BaseResponse> interceptResponse({required BaseResponse response});
+  Future<ResponseData> interceptResponse({required ResponseData data});
 }

@@ -1,3 +1,30 @@
+/// When having an URL as String and no parameters sent then it adds
+/// them to the string.
+
+
+String addParametersToStringUrl(String url, Map<String, String>? parameters) {
+  return buildUrlString(url, parameters);
+}
+
+Uri addParametersToUrl(Uri url, Map<String, String>? parameters) {
+  if (parameters == null) return url;
+
+  String paramUrl = url.origin + url.path;
+
+  Map<String, String> newParameters = {};
+
+  url.queryParameters.forEach((key, value) {
+    newParameters[key] = value;
+  });
+
+  parameters.forEach((key, value) {
+    newParameters[key] = value;
+  });
+
+  return Uri.parse(buildUrlString(paramUrl, newParameters));
+}
+
+
 /// Takes a string and appends [parameters] as query parameters of [url].
 ///
 /// It does not check if [url] is valid, it just appends the parameters.

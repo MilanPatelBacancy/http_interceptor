@@ -5,69 +5,69 @@ main() {
   group("Can parse from string", () {
     test("with HEAD method", () {
       // Arrange
-      HttpMethod method;
+      Method method;
       String methodString = "HEAD";
 
       // Act
       method = StringToMethod.fromString(methodString);
 
       // Assert
-      expect(method, equals(HttpMethod.HEAD));
+      expect(method, equals(Method.HEAD));
     });
     test("with GET method", () {
       // Arrange
-      HttpMethod method;
+      Method method;
       String methodString = "GET";
 
       // Act
       method = StringToMethod.fromString(methodString);
 
       // Assert
-      expect(method, equals(HttpMethod.GET));
+      expect(method, equals(Method.GET));
     });
     test("with POST method", () {
       // Arrange
-      HttpMethod method;
+      Method method;
       String methodString = "POST";
 
       // Act
       method = StringToMethod.fromString(methodString);
 
       // Assert
-      expect(method, equals(HttpMethod.POST));
+      expect(method, equals(Method.POST));
     });
     test("with PUT method", () {
       // Arrange
-      HttpMethod method;
+      Method method;
       String methodString = "PUT";
 
       // Act
       method = StringToMethod.fromString(methodString);
 
       // Assert
-      expect(method, equals(HttpMethod.PUT));
+      expect(method, equals(Method.PUT));
     });
     test("with PATCH method", () {
       // Arrange
-      HttpMethod method;
+      Method method;
       String methodString = "PATCH";
 
       // Act
       method = StringToMethod.fromString(methodString);
 
       // Assert
-      expect(method, equals(HttpMethod.PATCH));
+      expect(method, equals(Method.PATCH));
     });
     test("with DELETE method", () {
       // Arrange
-      HttpMethod method;
+      Method method;
       String methodString = "DELETE";
 
       // Act
       method = StringToMethod.fromString(methodString);
 
       // Assert
-      expect(method, equals(HttpMethod.DELETE));
+      expect(method, equals(Method.DELETE));
     });
   });
 
@@ -75,7 +75,7 @@ main() {
     test("to 'HEAD' string.", () {
       // Arrange
       String methodString;
-      HttpMethod method = HttpMethod.HEAD;
+      Method method = Method.HEAD;
 
       // Act
       methodString = method.asString;
@@ -86,7 +86,7 @@ main() {
     test("to 'GET' string.", () {
       // Arrange
       String methodString;
-      HttpMethod method = HttpMethod.GET;
+      Method method = Method.GET;
 
       // Act
       methodString = method.asString;
@@ -97,7 +97,7 @@ main() {
     test("to 'POST' string.", () {
       // Arrange
       String methodString;
-      HttpMethod method = HttpMethod.POST;
+      Method method = Method.POST;
 
       // Act
       methodString = method.asString;
@@ -108,7 +108,7 @@ main() {
     test("to 'PUT' string.", () {
       // Arrange
       String methodString;
-      HttpMethod method = HttpMethod.PUT;
+      Method method = Method.PUT;
 
       // Act
       methodString = method.asString;
@@ -119,7 +119,7 @@ main() {
     test("to 'PATCH' string.", () {
       // Arrange
       String methodString;
-      HttpMethod method = HttpMethod.PATCH;
+      Method method = Method.PATCH;
 
       // Act
       methodString = method.asString;
@@ -130,7 +130,7 @@ main() {
     test("to 'DELETE' string.", () {
       // Arrange
       String methodString;
-      HttpMethod method = HttpMethod.DELETE;
+      Method method = Method.DELETE;
 
       // Act
       methodString = method.asString;

@@ -6,7 +6,7 @@ extension StreamedRequestCopyWith on StreamedRequest {
   /// Creates a new instance of [StreamedRequest] based of on `this`. It copies
   /// all the properties and overrides the ones sent via parameters.
   StreamedRequest copyWith({
-    HttpMethod? method,
+    Method? method,
     Uri? url,
     Map<String, String>? headers,
     Stream<List<int>>? stream,
