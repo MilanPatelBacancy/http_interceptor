@@ -44,5 +44,5 @@ abstract class RetryPolicy {
       false;
 
   /// Number of maximum request attempts that can be retried.
-  final int maxRetryAttempts = 1;
+  final int maxRetryAttempts = 4;
 }
