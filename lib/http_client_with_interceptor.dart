@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 
 import 'package:http/http.dart';
+import 'package:http_interceptor/extensions/uri.dart';
 import 'package:http_interceptor/functions/functions.dart';
 import 'package:http_interceptor/http/http_methods.dart';
 import 'package:http_interceptor/http/interceptor_contract.dart';
@@ -82,59 +83,101 @@ class HttpClientWithInterceptor extends BaseClient {
         client: client,
       );
 
-  Future<Response> head(Uri url, {Map<String, String>? headers}) =>
-      _sendUnstreamed(
+  @override
+  Future<Response> head(
+      Uri url, {
+        Map<String, String>? headers,
+      }) async =>
+      (await _sendUnstreamed(
         method: Method.HEAD,
         url: url,
         headers: headers,
-      );
+      )) as Response;
 
-  Future<Response> get(Uri url,
-      {Map<String, String>? headers, Map<String, String>? params}) =>
-      _sendUnstreamed(
+  Future<Response> get(
+      Uri url, {
+        Map<String, String>? headers,
+        Map<String, dynamic>? params,
+      }) async =>
+      (await _sendUnstreamed(
         method: Method.GET,
         url: url,
         headers: headers,
         params: params,
-      );
+      )) as Response;
 
-  Future<Response> post(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed(
+
+  @override
+  Future<Response> post(
+      Uri url, {
+        Map<String, String>? headers,
+        Map<String, dynamic>? params,
+        Object? body,
+        Encoding? encoding,
+      }) async =>
+      (await _sendUnstreamed(
         method: Method.POST,
         url: url,
         headers: headers,
+        params: params,
         body: body,
         encoding: encoding,
-      );
+      )) as Response;
 
-  Future<Response> put(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed(
+  @override
+  Future<Response> put(
+      Uri url, {
+        Map<String, String>? headers,
+        Map<String, dynamic>? params,
+        Object? body,
+        Encoding? encoding,
+      }) async =>
+      (await _sendUnstreamed(
         method: Method.PUT,
         url: url,
         headers: headers,
+        params: params,
         body: body,
         encoding: encoding,
-      );
+      )) as Response;
 
-  Future<Response> patch(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed(
+
+
+  @override
+  Future<Response> patch(
+      Uri url, {
+        Map<String, String>? headers,
+        Map<String, dynamic>? params,
+        Object? body,
+        Encoding? encoding,
+      }) async =>
+      (await _sendUnstreamed(
         method: Method.PATCH,
         url: url,
         headers: headers,
+        params: params,
         body: body,
         encoding: encoding,
-      );
+      )) as Response;
 
-  Future<Response> delete(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed(
+  @override
+  Future<Response> delete(
+      Uri url, {
+        Map<String, String>? headers,
+        Map<String, dynamic>? params,
+        Object? body,
+        Encoding? encoding,
+      }) async =>
+      (await _sendUnstreamed(
         method: Method.DELETE,
         url: url,
         headers: headers,
-      );
+        params: params,
+        body: body,
+        encoding: encoding,
+      )) as Response;
+
+
 
   Future<String> read(Uri url, {Map<String, String>? headers}) {
     return get(url, headers: headers).then((response) {
@@ -155,17 +198,17 @@ class HttpClientWithInterceptor extends BaseClient {
     return _client.send(request);
   }
 
-  Future<Response> _sendUnstreamed({
+  Future<BaseResponse> _sendUnstreamed({
     required Method method,
     required Uri url,
     Map<String, String>? headers,
-    Map<String, String>? params,
+    Map<String, dynamic>? params,
     Object? body,
     Encoding? encoding,
   }) async {
-    url = addParametersToUrl(url, params);
+    url = url.addParameters(params);
 
-    Request request = new Request(methodToString(method), url);
+    Request request = new Request(method.toString(), url);
     if (headers != null) request.headers.addAll(headers);
     if (encoding != null) request.encoding = encoding;
     if (body != null) {
