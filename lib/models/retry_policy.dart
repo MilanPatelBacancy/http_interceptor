@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:http/http.dart';
+import 'models.dart';
 
 /// Defines the behavior for retrying requests.
 ///
@@ -40,9 +40,9 @@ abstract class RetryPolicy {
 
   /// Defines whether the request should be retried after the request has
   /// received `response` from the server.
-  Future<bool> shouldAttemptRetryOnResponse(BaseResponse response) async =>
+  Future<bool> shouldAttemptRetryOnResponse(ResponseData response) async =>
       false;
 
   /// Number of maximum request attempts that can be retried.
-  final int maxRetryAttempts = 1;
+  final int maxRetryAttempts = 4;
 }

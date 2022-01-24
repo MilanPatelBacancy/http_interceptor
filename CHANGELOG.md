@@ -43,6 +43,10 @@ Check out the [1.0.0 migration guide](./guides/migration_guide_1.0.0.md) for inf
 
 - 🛠&nbsp;&nbsp;Changed: Pre initialized `headers` and `params` on `RequestData`. This was a missed change on null-safety migration.
 
+## 0.4.1
+
+- 🛠&nbsp;&nbsp;Changed: Pre initialized `headers` and `params` on `RequestData`. This was a missed change on null-safety migration.
+
 ## 0.4.0
 
 Check out [our 0.4.0 migration guide](./guides/migration_guide_0.4.0.md) for information on how to migrate your code.

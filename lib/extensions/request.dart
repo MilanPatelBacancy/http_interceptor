@@ -8,7 +8,7 @@ extension RequestCopyWith on Request {
   /// Creates a new instance of [Request] based of on `this`. It copies
   /// all the properties and overrides the ones sent via parameters.
   Request copyWith({
-    HttpMethod? method,
+    Method? method,
     Uri? url,
     Map<String, String>? headers,
     dynamic body,

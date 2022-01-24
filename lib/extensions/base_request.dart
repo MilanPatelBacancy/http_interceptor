@@ -16,7 +16,7 @@ extension BaseRequestCopyWith on BaseRequest {
   ///
   /// [stream] are only copied if `this` is a [StreamedRequest] instance.
   BaseRequest copyWith({
-    HttpMethod? method,
+    Method? method,
     Uri? url,
     Map<String, String>? headers,
     bool? followRedirects,
