@@ -208,7 +208,7 @@ class HttpClientWithInterceptor extends BaseClient {
   }) async {
     url = url.addParameters(params);
 
-    Request request = new Request(method.toString(), url);
+    Request request = new Request(method.asString, url);
     if (headers != null) request.headers.addAll(headers);
     if (encoding != null) request.encoding = encoding;
     if (body != null) {
